@@ -1,3 +1,9 @@
+#strava api configuration
+data/strava_config
+
+#drive
+desktop.ini
+
 #sftp
 sftp-config.json
 

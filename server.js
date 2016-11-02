@@ -1,16 +1,10 @@
 var fs = require('fs');
 var express = require('express');
-var hbs  = require('express-hbs');
+var exphbs  = require('express-handlebars');
 var strava = require('strava-v3');
 var app = express();
-// Use `.hbs` for extensions and find partials in `views/partials`.
-app.engine('hbs', hbs.express4({
-  partialsDir: __dirname + '/views/partials',
-   defaultLayout: __dirname + '/views/main'
-}));
-app.set('view engine', 'hbs');
-app.set('views', __dirname + '/views');
-
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 var https = require('https').createServer({
   key: fs.readFileSync('/etc/letsencrypt/live/joepschyns.me/privkey.pem'),
   cert: fs.readFileSync('/etc/letsencrypt/live/joepschyns.me/cert.pem')

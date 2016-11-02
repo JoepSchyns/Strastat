@@ -26,16 +26,14 @@ app.get('/', function (req, res) {
 });
 
 app.get('/oauth',function(req,res){ //switch to https://github.com/barc/express-hbs
+	console.log(req.param('code'));
+	console.log(req.param('error'));
 	if(req.param('error') == undefined){ //if no errors in oauth
-		
-		res.render('oauthresult',{helper:
-			hbs.registerAsyncHelper('athlete', function(string,cb) {
-				console.log("async yo");
-				strava.oauth.getToken(req.param('code'),function(err,result){
-					cb(result.athlete);
-				});
-			})
+		strava.oauth.getToken(req.param('code'),function(err,result){
+			console.log(result);
+			res.render('oauthresult',{athlete:result.athlete});
 		});
+		
 	}else
 		res.render('error',{error:req.params.error});
 
